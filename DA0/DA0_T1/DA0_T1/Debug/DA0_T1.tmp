@@ -1,0 +1,29 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.1.57</VERSION>
+ <DEVICE>"ATmega328P"</DEVICE>
+ <WORKING_DIR>D:\Dropbox\School\CPE301\wellsa_unlv\DA0\DA0_T1\DA0_T1\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>D:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.0.90\avrasm\inc</DIR>
+  <DIR>D:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.0.90\avrasm\inc</DIR>
+  <DIR>D:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>D:\Dropbox\School\CPE301\wellsa_unlv\DA0\DA0_T1\DA0_T1\DA0_T1.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>D:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.0.90\avrasm\inc\m328pdef.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>D:\Dropbox\School\CPE301\wellsa_unlv\DA0\DA0_T1\DA0_T1\Debug\DA0_T1.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>DA0_T1.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>DA0_T1.map</FILE>
+  <FILE>DA0_T1.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <start><FILE>D:\Dropbox\School\CPE301\wellsa_unlv\DA0\DA0_T1\DA0_T1\DA0_T1.asm</FILE><LINE>11</LINE></start>
+  <overflo><FILE>D:\Dropbox\School\CPE301\wellsa_unlv\DA0\DA0_T1\DA0_T1\DA0_T1.asm</FILE><LINE>29</LINE></overflo>
+ </LABELS>
+</ASSEMBLER_INFO>
