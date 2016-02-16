@@ -1,4 +1,4 @@
-;  Andrew Wells CPE 301
+;  Andrew Wells CPE 301 Design Assignment 0
 ; DA0_T1.asm
 ;
 ; Created: 2/13/2016 1:01:54 PM
@@ -12,10 +12,10 @@ start:
 	out PORTB, R0  // Sets all the pins of PORTB to LOW
 
 	ldi R16, 31  // Load 31 into R16
-	ldi R17, 53  // Load 31 into R17
-	ldi R18, 47  // Load 31 into R18
-	ldi R19, 35  // Load 31 into R19
-	ldi R20, 59  // Load 31 into R20
+	ldi R17, 53  // Load 53 into R17
+	ldi R18, 47  // Load 47 into R18
+	ldi R19, 35  // Load 35 into R19
+	ldi R20, 59  // Load 59 into R20
 
 	add R16, R17  // R16 = R16 + R17
 	add R16, R18  // R16 = R16 + R18
