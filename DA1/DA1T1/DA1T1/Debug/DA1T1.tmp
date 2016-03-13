@@ -23,13 +23,14 @@
   <FILE>DA1T1.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <start><FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\DA1T1.asm</FILE><LINE>21</LINE></start>
-  <NEXT><FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\DA1T1.asm</FILE><LINE>33</LINE></NEXT>
-  <DIV7><FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\DA1T1.asm</FILE><LINE>37</LINE></DIV7>
-  <NEXTDIV><FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\DA1T1.asm</FILE><LINE>47</LINE></NEXTDIV>
-  <DIV3><FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\DA1T1.asm</FILE><LINE>49</LINE></DIV3>
-  <DIVDONE><FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\DA1T1.asm</FILE><LINE>59</LINE></DIVDONE>
-  <SETREG><FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\DA1T1.asm</FILE><LINE>73</LINE></SETREG>
-  <HOLD><FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\DA1T1.asm</FILE><LINE>70</LINE></HOLD>
+  <start><FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\DA1T1.asm</FILE><LINE>22</LINE></start>
+  <NEXT><FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\DA1T1.asm</FILE><LINE>37</LINE></NEXT>
+  <DIVINIT><FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\DA1T1.asm</FILE><LINE>45</LINE></DIVINIT>
+  <DIV7><FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\DA1T1.asm</FILE><LINE>48</LINE></DIV7>
+  <NEXTDIV><FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\DA1T1.asm</FILE><LINE>59</LINE></NEXTDIV>
+  <DIV3><FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\DA1T1.asm</FILE><LINE>61</LINE></DIV3>
+  <DIVDONE><FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\DA1T1.asm</FILE><LINE>71</LINE></DIVDONE>
+  <SETREG><FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\DA1T1.asm</FILE><LINE>85</LINE></SETREG>
+  <HOLD><FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\DA1T1.asm</FILE><LINE>82</LINE></HOLD>
  </LABELS>
 </ASSEMBLER_INFO>

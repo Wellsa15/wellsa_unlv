@@ -1,9 +1,9 @@
 
-AVRASM ver. 2.1.57  C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\DA1T1.asm Mon Feb 29 11:39:21 2016
+AVRASM ver. 2.1.57  C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA2\DA2T1\DA2T1\main.asm Thu Mar 10 14:02:37 2016
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.0.90\avrasm\inc\m328pdef.inc'
                  
-                 ;Andrew Wells CPE 301 DA1
+                 ;
                  
                  ;***** Created: 2011-02-09 12:03 ******* Source: ATmega328P.xml **********
                  ;*************************************************************************
@@ -984,97 +984,104 @@ AVRASM ver. 2.1.57  C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\D
                  
                  ; ***** END OF FILE ******************************************************
                  
-                 ; DA1T1.asm
+                 ; DA2T1.asm
                  ;
-                 ; Created: 2/24/2016 9:26:24 PM
+                 ; Created: 3/10/2016 9:57:30 AM
                  ; Author : sirfe
                  ;
                  
-                 ;  Macro to create the stack
-                 .macro SET_STACK	;Beginning of macro
+                 
+                 ; Replace with your application code
+                 
+                 .macro MAKESTACK				;Start of Stack Macro
                  	ldi		r16, LOW(RAMEND)	;Copy the lower 8 bits of the end of the RAM into R16
                  	out		spl, r16			;Copy the address in r16 to the lower portion of the stack pointer
                  	ldi		r16, HIGH(RAMEND)	;Copy the higher 8 bits of the end of hte RAM into R16
                  	out		sph, r16			;Copy the address in r16 to the higher portion of the stack pointer
                  .endmacro
-                 	
+                 
+                 
                  .cseg
-                 .org 0			
-000000 c01f      	rjmp start	;Skips over the interrupt portion of the memory
+                 .org 0x0
+000000 940c 0100 	jmp		START
                  
-                 .org 0x20	; starting point for the program
-                 
-                 start:
-000020 ef0f
-000021 bf0d
-000022 e008
-000023 bf0e      	SET_STACK	; runs macro to create the stack
-                 
-000024 e139      	ldi		r19, 25	; Copy 25 into R19, keeps track of how many values have been obtained
-000025 e040      	ldi		r20, 0	; make sure R20 is 0 to start
-000026 e050      	ldi		r21, 0	; make sure R21 is 0 to start
-000027 e070      	ldi		r23, 0	; make sure R23 is 0 to start
-000028 e080      	ldi		r24, 0	; make sure R24 is 0 to start
-000029 e0f8          ldi		ZH, HIGH(RAMEND)	; Copy the High portion of the end of the RAM to ZH pointer/register
-00002a efef      	ldi		ZL, LOW(RAMEND)		; Copy the Lower portion of the end of the RAM to the ZL pointer/register
-                 	; Divide by 2, to get to the middle of the RAM
-00002b 95f6      	lsr		ZH	; Shift the upper portion of Z to the right
-00002c 95e7      	ror		ZL	; Rotate the lower portion of Z to the right, brings in the carry(if any) from the upper portion
-00002d 2fae      	mov		XL, ZL ; Copy lower 8-bits of ram center address to the XL reg
-00002e 2fbf      	mov		XH, ZH ; Copy hupper 8-bits of ram center address to the XH reg
-                 NEXT:
-00002f 2f1e      	mov		r17, ZL	;Copy the value of the lower portion of the address in Z to R17
-000030 9311      	st		Z+, r17	;  Store back the value into the RAM and increment Z to the next location
-                 	;mov		r16, r17	;  Copy the value in R17 to R16, to keep the value available for later calculations
-000031 953a      	dec		r19	; Decrement R19 by 1
-000032 3030      	cpi		r19, 0 ; Compare R19 with zero
-000033 f7d9      	brne	NEXT	; If not zero return to beginning and get another value
-000034 e139      	ldi		r19, 25
-                 DIVINIT:
-000035 911d      	LD		r17, X+ ;
-000036 2f01      	mov		r16, r17
-                 DIV7:
-                 
-000037 5007      	subi	r16, 7	; Subtract the Value in R16 by 7
-000038 3007      	cpi		r16, 7	; Check to see if the value in r16 is 7
-000039 f7e8      	brsh	DIV7	; If the value is greater than or equal to 7, jump to DIV7 and continue to subtract
-00003a 1500      	cp		r16, r0 ; Compare the value in R16 to 0
-00003b f411      	brne	NEXTDIV	; If R16 is not 0 Skip to NEXTDIV and do not add value to total
-                 
-00003c 0f41      	add		r20, r17	;  If value is divisable by 7 then add value to running total
-00003d 1f55      	adc		r21, r21	;  Add R21 to itself, only increases if there is a carry from previous addition
-                 
-                 NEXTDIV:
-00003e 2f01      	mov		r16, r17	;  Copy the Value in R17 into R16
-                 DIV3:
-00003f 5003      	subi	r16, 3	; Subtract the Value in R16 by 3
-000040 3003      	cpi		r16, 3	; Check to see if the value in r16 is 3
-000041 f7e8      	brsh	DIV3	; If the value is greater than or equal to 3, jump to DIV3 and continue to subtract
-000042 1500      	cp		r16, r0	; Compare the value in R16 to 0
-000043 f411      	brne	DIVDONE	; If R16 is not 0 Skip to DIVDONE and do not add value to total
-                 		
-000044 0f71      	add		r23, r17	;  If value is divisable by 3 then add value to running total
-000045 1f88      	adc		r24, r24	;  Add R24 to itself, only increases if there is a carry from previous addition
-                 
-                 DIVDONE:
+                 .org 0x100		;Start of Program
+                 START:
                  	
-000046 953a      	dec		r19		; Decrement R19 by 1
-000047 3030      	cpi		r19, 0	; Compare R19 with 0
-000048 f761      	brne	DIVINIT	; If not zero return to beginning and get another value
-                 
-000049 3050      	cpi		r21,0	; Compare R21 with 0
-00004a f419      	brne	SETREG	; If R21 is not 0 jump to SETREG
-00004b 3080      	cpi		r24,0	; Compare R24 with 0
-00004c f409      	brne	SETREG	; If R24 is not 0 jump to SETREG
+000100 9a38      	SBI		DDRC, 0
+000101 9a3c      	SBI		DDRC, 4
+000102 9a3d      	SBI		DDRC, 5
+000103 e050      	LDI		R21, 0
+000104 e060      	LDI		R22, 0
+000105 ef0f      	LDI		R16, 0xFF
+000106 b904      	OUT		DDRB, R16
+000107 ef0f
+000108 bf0d
+000109 e008
+00010a bf0e      	MAKESTACK
+                 COUNTING:
+00010b 940e 0129 	call	DELAY
+00010d 3011      	CPI		R17, 0x01
+00010e f7e1      	BRNE	COUNTING
+00010f 9553      	INC		R21
+000110 9563      	INC		R22
+000111 b955      	OUT		PORTB, R21
+                 CHECK1:
+000112 3065      	CPI		R22, 5
+000113 f419      	BRNE	CHECK2
+000114 e220      	LDI		R18, 0x20
+000115 2b21      	OR		R18, R17
+000116 b928      	OUT		PORTC, R18
+                 CHECK2:
+000117 306a      	CPI		R22, 10
+000118 f419      	BRNE	CHECK3
+000119 e120      	LDI		R18, 0x10
+00011a 2b21      	OR		R18, R17
+00011b b928      	OUT		PORTC, R18
+                 CHECK3:
+00011c 306f      	CPI		R22, 15
+00011d f419      	BRNE	CHECK4
+00011e e320      	LDI		R18, 0x30
+00011f 2b21      	OR		R18, R17
+000120 b928      	OUT		PORTC, R18
+                 CHECK4:
+000121 3164      	CPI		R22, 20
+000122 f741      	BRNE	COUNTING
+000123 e060      	LDI		R22, 0
+000124 e020      	LDI		R18, 0x00
+000125 2b21      	OR		R18, R17
+000126 b928      	OUT		PORTC, R18
+000127 cfe3      	rjmp	COUNTING
                  
                  HOLD:
-00004d cfff      	rjmp HOLD	;Infinite Loop
+000128 cfff      	rjmp	HOLD			;Infinite Loop
                  
-                 SETREG:
-00004e e004      	ldi		r16, 4	; Copy 4 into R16
-00004f 2e70      	mov		r7, r16	;  Copy 4 into R7, setting bit 3 to high
-000050 cffc      	rjmp	HOLD	;Jump to infinite loop
                  
+                 DELAY:
+000129 e001      	LDI		R16, 0x01
+00012a ef48      	LDI		R20, 0xF8	;OCR1A = 0xF862, 1950,63586
+00012b 9340 0085 	STS		TCNT1H, R20	;OCR1AH = 7
+00012d e642      	LDI		R20, 0x62
+00012e 9340 0084 	STS		TCNT1L, R20	;OCR1AL = 158
+000130 e040      	LDI		R20, 0x00
+000131 9340 0080 	STS		TCCR1A, R20	; Normal Mode
+000133 e045      	LDI		R20, 0x05
+000134 9340 0081 	STS		TCCR1B, R20 ;1024 prescaler
+                 LOOP1:
+000136 b346      	IN		R20, TIFR1
+000137 ff40      	SBRS	R20, TOV1	;skip next instruction if TOV1 = 1
+000138 cffd      	rjmp	LOOP1
+000139 2710      	EOR		R17, R16
+00013a 3010      	CPI		R17, 0x00
+00013b f411      	BRNE	NOTZERO
+00013c 9840      	CBI		PORTC, 0
+00013d c001      	rjmp	ZERO
+                 NOTZERO:
+00013e 9a40      	SBI		PORTC, 0
+                 ZERO:
+00013f e031      	LDI		R19, 1<<TOV1
+000140 bb36      	OUT		TIFR1, R19	;clear OCF1A
+000141 9508      ret
 
 
 RESOURCE USE INFORMATION
@@ -1092,39 +1099,39 @@ counted separately from r26..r31 here.
 .dseg memory usage only counts static data declared with .byte
 
 "ATmega328P" register use summary:
-r0 :   2 r1 :   0 r2 :   0 r3 :   0 r4 :   0 r5 :   0 r6 :   0 r7 :   1 
+r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 r5 :   0 r6 :   0 r7 :   0 
 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 r13:   0 r14:   0 r15:   0 
-r16:  14 r17:   7 r18:   0 r19:   6 r20:   2 r21:   4 r22:   0 r23:   2 
-r24:   4 r25:   0 r26:   1 r27:   1 r28:   0 r29:   0 r30:   4 r31:   3 
-x  :   1 y  :   0 z  :   1 
-Registers used: 15 out of 35 (42.9%)
+r16:   8 r17:   7 r18:  12 r19:   2 r20:  10 r21:   3 r22:   7 r23:   0 
+r24:   0 r25:   0 r26:   0 r27:   0 r28:   0 r29:   0 r30:   0 r31:   0 
+x  :   0 y  :   0 z  :   0 
+Registers used: 7 out of 35 (20.0%)
 
 "ATmega328P" instruction use summary:
-.lds  :   0 .sts  :   0 adc   :   2 add   :   2 adiw  :   0 and   :   0 
+.lds  :   0 .sts  :   0 adc   :   0 add   :   0 adiw  :   0 and   :   0 
 andi  :   0 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
 brcc  :   0 brcs  :   0 break :   0 breq  :   0 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
-brne  :   6 brpl  :   0 brsh  :   2 brtc  :   0 brts  :   0 brvc  :   0 
-brvs  :   0 bset  :   0 bst   :   0 call  :   0 cbi   :   0 cbr   :   0 
+brne  :   6 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
+brvs  :   0 bset  :   0 bst   :   0 call  :   1 cbi   :   1 cbr   :   0 
 clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   0 cls   :   0 
-clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   2 cpc   :   0 
-cpi   :   6 cpse  :   0 dec   :   2 eor   :   0 fmul  :   0 fmuls :   0 
-fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   0 jmp   :   0 
-ld    :   1 ldd   :   0 ldi   :  11 lds   :   0 lpm   :   0 lsl   :   0 
-lsr   :   1 mov   :   6 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
-neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :   2 pop   :   0 
-push  :   0 rcall :   0 ret   :   0 reti  :   0 rjmp  :   3 rol   :   0 
-ror   :   1 sbc   :   0 sbci  :   0 sbi   :   0 sbic  :   0 sbis  :   0 
-sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   0 sec   :   0 seh   :   0 
+clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
+cpi   :   6 cpse  :   0 dec   :   0 eor   :   1 fmul  :   0 fmuls :   0 
+fmulsu:   0 icall :   0 ijmp  :   0 in    :   1 inc   :   2 jmp   :   1 
+ld    :   0 ldd   :   0 ldi   :  16 lds   :   0 lpm   :   0 lsl   :   0 
+lsr   :   0 mov   :   0 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
+neg   :   0 nop   :   0 or    :   4 ori   :   0 out   :   9 pop   :   0 
+push  :   0 rcall :   0 ret   :   1 reti  :   0 rjmp  :   4 rol   :   0 
+ror   :   0 sbc   :   0 sbci  :   0 sbi   :   4 sbic  :   0 sbis  :   0 
+sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   1 sec   :   0 seh   :   0 
 sei   :   0 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
-sez   :   0 sleep :   0 spm   :   0 st    :   1 std   :   0 sts   :   0 
-sub   :   0 subi  :   2 swap  :   0 tst   :   0 wdr   :   0 
+sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :   4 
+sub   :   0 subi  :   0 swap  :   0 tst   :   0 wdr   :   0 
 Instructions used: 16 out of 113 (14.2%)
 
 "ATmega328P" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x0000a2    100      0    100   32768   0.3%
+[.cseg] 0x000000 0x000284    136      0    136   32768   0.4%
 [.dseg] 0x000100 0x000100      0      0      0    2048   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 
