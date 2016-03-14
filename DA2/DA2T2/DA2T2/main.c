@@ -7,23 +7,22 @@
 
 #include <avr/io.h>
 
+void DELAY();
 
-int DELAY(int);
 
-
-int main(void)
+int main()
 {
+	PORTC0 << 0;
 	DDRB = 0xFF;
 	DDRC = 0x31;
-	int b = 0x00;
-	int num = 0x0;
-	int byfive = 0x0;
+	int num = 0;
+	int byfive = 0;
 	//unsigned char k;
  
     while (1) 
     {		
-		b = DELAY(b);
-		if (b == 1)
+		DELAY();
+		if (PORTC0 == 1)
 		{
 			num++;
 			byfive++;
@@ -65,9 +64,8 @@ int main(void)
 return 0;
 }
 
-int DELAY(int b)
+void DELAY()
 {
-	
 	int a = 0x01;
 	TCNT1 = 0xF862;
 	TCCR1A = 0x0;
@@ -77,15 +75,7 @@ int DELAY(int b)
 	{		
 	}
 	
-	b = a ^ b;
+	PORTC0 1;
 	TIFR1 |= 1 << 0;
-	if (b == 0)
-	{
-		
-		PORTC0 << 0;
-	}else
-	{
-		PORTC1 << 1;
-	}
-return b;	
+return;	
 }
