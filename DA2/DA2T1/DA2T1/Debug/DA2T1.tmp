@@ -1,19 +1,19 @@
 <ASSEMBLER_INFO>
  <VERSION>2.1.57</VERSION>
  <DEVICE>"ATmega328P"</DEVICE>
- <WORKING_DIR>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA2\DA2T1\DA2T1\Debug</WORKING_DIR>
+ <WORKING_DIR>D:\Dropbox\School\CPE301\wellsa_unlv\DA2\DA2T1\DA2T1\Debug</WORKING_DIR>
  <INCLUDE_PATH>
-  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.0.90\avrasm\inc</DIR>
-  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.0.90\avrasm\inc</DIR>
-  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR>D:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.0.90\avrasm\inc</DIR>
+  <DIR>D:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.0.90\avrasm\inc</DIR>
+  <DIR>D:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
   <DIR></DIR>
  </INCLUDE_PATH>
- <SOURCE_FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA2\DA2T1\DA2T1\main.asm</SOURCE_FILE>
+ <SOURCE_FILE>D:\Dropbox\School\CPE301\wellsa_unlv\DA2\DA2T1\DA2T1\DA2T1.asm</SOURCE_FILE>
  <INCLUDED_FILES>
-  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.0.90\avrasm\inc\m328pdef.inc</FILE>
+  <FILE>D:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.0.90\avrasm\inc\m328pdef.inc</FILE>
  </INCLUDED_FILES>
  <OBJECT_FILES>
-  <FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA2\DA2T1\DA2T1\Debug\DA2T1.obj</FILE>
+  <FILE>D:\Dropbox\School\CPE301\wellsa_unlv\DA2\DA2T1\DA2T1\Debug\DA2T1.obj</FILE>
  </OBJECT_FILES>
  <HEX_FILES>
   <FILE>DA2T1.hex</FILE>
@@ -23,16 +23,16 @@
   <FILE>DA2T1.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <START><FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA2\DA2T1\DA2T1\main.asm</FILE><LINE>24</LINE></START>
-  <COUNTING><FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA2\DA2T1\DA2T1\main.asm</FILE><LINE>34</LINE></COUNTING>
-  <DELAY><FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA2\DA2T1\DA2T1\main.asm</FILE><LINE>72</LINE></DELAY>
-  <CHECK1><FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA2\DA2T1\DA2T1\main.asm</FILE><LINE>41</LINE></CHECK1>
-  <CHECK2><FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA2\DA2T1\DA2T1\main.asm</FILE><LINE>47</LINE></CHECK2>
-  <CHECK3><FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA2\DA2T1\DA2T1\main.asm</FILE><LINE>53</LINE></CHECK3>
-  <CHECK4><FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA2\DA2T1\DA2T1\main.asm</FILE><LINE>59</LINE></CHECK4>
-  <HOLD><FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA2\DA2T1\DA2T1\main.asm</FILE><LINE>68</LINE></HOLD>
-  <LOOP1><FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA2\DA2T1\DA2T1\main.asm</FILE><LINE>82</LINE></LOOP1>
-  <NOTZERO><FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA2\DA2T1\DA2T1\main.asm</FILE><LINE>91</LINE></NOTZERO>
-  <ZERO><FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA2\DA2T1\DA2T1\main.asm</FILE><LINE>93</LINE></ZERO>
+  <START><FILE>D:\Dropbox\School\CPE301\wellsa_unlv\DA2\DA2T1\DA2T1\DA2T1.asm</FILE><LINE>24</LINE></START>
+  <COUNTING><FILE>D:\Dropbox\School\CPE301\wellsa_unlv\DA2\DA2T1\DA2T1\DA2T1.asm</FILE><LINE>34</LINE></COUNTING>
+  <DELAY><FILE>D:\Dropbox\School\CPE301\wellsa_unlv\DA2\DA2T1\DA2T1\DA2T1.asm</FILE><LINE>75</LINE></DELAY>
+  <CHECK1><FILE>D:\Dropbox\School\CPE301\wellsa_unlv\DA2\DA2T1\DA2T1\DA2T1.asm</FILE><LINE>41</LINE></CHECK1>
+  <CHECK2><FILE>D:\Dropbox\School\CPE301\wellsa_unlv\DA2\DA2T1\DA2T1\DA2T1.asm</FILE><LINE>48</LINE></CHECK2>
+  <CHECK3><FILE>D:\Dropbox\School\CPE301\wellsa_unlv\DA2\DA2T1\DA2T1\DA2T1.asm</FILE><LINE>55</LINE></CHECK3>
+  <CHECK4><FILE>D:\Dropbox\School\CPE301\wellsa_unlv\DA2\DA2T1\DA2T1\DA2T1.asm</FILE><LINE>62</LINE></CHECK4>
+  <HOLD><FILE>D:\Dropbox\School\CPE301\wellsa_unlv\DA2\DA2T1\DA2T1\DA2T1.asm</FILE><LINE>71</LINE></HOLD>
+  <LOOP1><FILE>D:\Dropbox\School\CPE301\wellsa_unlv\DA2\DA2T1\DA2T1\DA2T1.asm</FILE><LINE>85</LINE></LOOP1>
+  <NOTZERO><FILE>D:\Dropbox\School\CPE301\wellsa_unlv\DA2\DA2T1\DA2T1\DA2T1.asm</FILE><LINE>94</LINE></NOTZERO>
+  <ZERO><FILE>D:\Dropbox\School\CPE301\wellsa_unlv\DA2\DA2T1\DA2T1\DA2T1.asm</FILE><LINE>96</LINE></ZERO>
  </LABELS>
 </ASSEMBLER_INFO>
