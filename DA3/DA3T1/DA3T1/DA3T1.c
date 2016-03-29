@@ -5,8 +5,8 @@
  * Author : sirfe
  */ 
 
-#define F_CPU 1000000UL
-#define UBRR_2400 25	//For 1Mhz
+#define F_CPU 8000000UL
+#define UBRR_9600 51	//For 1Mhz
 
 #include <avr/io.h>
 #include <stdio.h>
@@ -17,25 +17,33 @@ void ADCstart();
 void read_adc();
 void USARTstart(unsigned int ubrr);
 void USART_tx_string(char *data);
+void TIMER1_init();
 
-volatile char ReceivedChar;
 volatile unsigned int ADCvalue;
+volatile unsigned int X;
 char outs[20];
+float Ratio;
 
 int main(void)
 {
 	
+	Ratio = 500.0/1024.0;
 	ADCstart();
-	USARTstart(UBRR_2400);
+	USARTstart(UBRR_9600);
+	TIMER1_init();
+
 	sei ();
     while (1) 
     {
-		read_adc();
+		X = 4;
+		ADCvalue = 0;
+		while(X)
+		{			
+		}
+		ADCvalue = ADCvalue/4;
 		
 		snprintf(outs, sizeof(outs),"%3d\r\n", ADCvalue); // print
 		USART_tx_string(outs);
-		
-	_delay_ms(125);  //wait 125ms
     }
 	
 return 0;
@@ -43,19 +51,12 @@ return 0;
 
 void read_adc()
 {
-	unsigned char i=4;
-	ADCvalue = 0;
-	while (i--)
-	{
-		ADCSRA |= (1<<ADSC);
-		while(ADCSRA & (1<<ADSC))
-		{			
-		}
-		ADCvalue += ADC;
-		_delay_ms(50);
+	ADCSRA |= (1<<ADSC);
+	while(ADCSRA & (1<<ADSC))
+	{			
 	}
-	ADCvalue = ADCvalue;
-	
+	ADCvalue += (Ratio*ADC);
+		
 return;
 }
 
@@ -75,14 +76,19 @@ void ADCstart()
 			(1<<ADPS2)|	//ADC Prescaler Bits
 			(0<<ADPS1)|
 			(1<<ADPS0); 
-	
-	ADCSRB = 0; // 0 for free running mode
-		
-	TIMSK1 |= (1<<TOIE1);  //enable overflow interrupt
-	
-	TCCR1B |=(1<<CS11)|	// Native clock
-			 (1<<CS10);
+
 return;
+}
+
+void TIMER1_init()
+{			
+			OCR1A = 0x7A12;
+			TIMSK1 |= (1<<OCIE1A);  //enable Compare A interrupt
+			
+			TCCR1B |=(1<<WGM12)|// CTC Mode
+					 (1<<CS11)|	// Prescaler = 64
+					 (1<<CS10);
+			
 }
 
 void USARTstart(unsigned int ubrr)
@@ -106,4 +112,10 @@ void USART_tx_string(char *data)
 		UDR0 = *data;
 		data++;
 	}
+}
+
+ISR (TIMER1_COMPA_vect)
+{
+	read_adc();
+	X--;
 }
