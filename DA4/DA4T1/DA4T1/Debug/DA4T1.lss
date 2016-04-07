@@ -1,0 +1,402 @@
+
+DA4T1.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000000  00800100  00800100  000001ec  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         00000198  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .comment      00000030  00000000  00000000  000001ec  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  0000021c  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000040  00000000  00000000  0000025c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   000001b8  00000000  00000000  0000029c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 0000010c  00000000  00000000  00000454  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   000001a0  00000000  00000000  00000560  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000064  00000000  00000000  00000700  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    000001c0  00000000  00000000  00000764  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000048  00000000  00000000  00000924  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000030  00000000  00000000  0000096c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 34 00 	jmp	0x68	; 0x68 <__ctors_end>
+   4:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+   8:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+   c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  10:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  14:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  18:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  1c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  20:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  24:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  28:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  2c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  30:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  34:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  38:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  3c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  40:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  44:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  48:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  4c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  50:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  54:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  58:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  5c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  60:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  64:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+
+00000068 <__ctors_end>:
+  68:	11 24       	eor	r1, r1
+  6a:	1f be       	out	0x3f, r1	; 63
+  6c:	cf ef       	ldi	r28, 0xFF	; 255
+  6e:	d8 e0       	ldi	r29, 0x08	; 8
+  70:	de bf       	out	0x3e, r29	; 62
+  72:	cd bf       	out	0x3d, r28	; 61
+  74:	0e 94 82 00 	call	0x104	; 0x104 <main>
+  78:	0c 94 ca 00 	jmp	0x194	; 0x194 <_exit>
+
+0000007c <__bad_interrupt>:
+  7c:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000080 <DUTY_CYCLE>:
+return 0;
+}
+
+void DUTY_CYCLE()
+{
+	OCR1A = 25; // Initialize Compare value to 10% of 255
+  80:	e8 e8       	ldi	r30, 0x88	; 136
+  82:	f0 e0       	ldi	r31, 0x00	; 0
+  84:	89 e1       	ldi	r24, 0x19	; 25
+  86:	90 e0       	ldi	r25, 0x00	; 0
+  88:	91 83       	std	Z+1, r25	; 0x01
+  8a:	80 83       	st	Z, r24
+	OCR0A = 25; // Initialize Compare value to 10% of 255
+  8c:	87 bd       	out	0x27, r24	; 39
+	OCR2A = 25; // Initialize Compare value to 10% of 255
+  8e:	80 93 b3 00 	sts	0x00B3, r24
+	while(OCR1A < 249)
+  92:	80 81       	ld	r24, Z
+  94:	91 81       	ldd	r25, Z+1	; 0x01
+  96:	89 3f       	cpi	r24, 0xF9	; 249
+  98:	91 05       	cpc	r25, r1
+  9a:	58 f1       	brcs	.+86     	; 0xf2 <DUTY_CYCLE+0x72>
+  9c:	08 95       	ret
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  9e:	2f e7       	ldi	r18, 0x7F	; 127
+  a0:	39 ea       	ldi	r19, 0xA9	; 169
+  a2:	83 e0       	ldi	r24, 0x03	; 3
+  a4:	21 50       	subi	r18, 0x01	; 1
+  a6:	30 40       	sbci	r19, 0x00	; 0
+  a8:	80 40       	sbci	r24, 0x00	; 0
+  aa:	e1 f7       	brne	.-8      	; 0xa4 <DUTY_CYCLE+0x24>
+  ac:	00 c0       	rjmp	.+0      	; 0xae <DUTY_CYCLE+0x2e>
+  ae:	00 00       	nop
+		while(OCR0A < 249)
+		{
+			while(OCR2A < 249)
+			{
+				_delay_ms(150);
+				OCR2A = OCR2A + 25; // Increase compare value by 25 or 10%
+  b0:	80 81       	ld	r24, Z
+  b2:	87 5e       	subi	r24, 0xE7	; 231
+  b4:	80 83       	st	Z, r24
+	OCR2A = 25; // Initialize Compare value to 10% of 255
+	while(OCR1A < 249)
+	{
+		while(OCR0A < 249)
+		{
+			while(OCR2A < 249)
+  b6:	80 81       	ld	r24, Z
+  b8:	89 3f       	cpi	r24, 0xF9	; 249
+  ba:	88 f3       	brcs	.-30     	; 0x9e <DUTY_CYCLE+0x1e>
+			{
+				_delay_ms(150);
+				OCR2A = OCR2A + 25; // Increase compare value by 25 or 10%
+			}
+			OCR2A = 25; // Reset Compare value for timer 2 to 25 or 10%
+  bc:	90 83       	st	Z, r25
+			OCR0A = OCR0A +25; // Increase compare value by 25 or 10%
+  be:	87 b5       	in	r24, 0x27	; 39
+  c0:	87 5e       	subi	r24, 0xE7	; 231
+  c2:	87 bd       	out	0x27, r24	; 39
+	OCR1A = 25; // Initialize Compare value to 10% of 255
+	OCR0A = 25; // Initialize Compare value to 10% of 255
+	OCR2A = 25; // Initialize Compare value to 10% of 255
+	while(OCR1A < 249)
+	{
+		while(OCR0A < 249)
+  c4:	87 b5       	in	r24, 0x27	; 39
+  c6:	89 3f       	cpi	r24, 0xF9	; 249
+  c8:	20 f4       	brcc	.+8      	; 0xd2 <DUTY_CYCLE+0x52>
+		{
+			while(OCR2A < 249)
+  ca:	80 81       	ld	r24, Z
+  cc:	89 3f       	cpi	r24, 0xF9	; 249
+  ce:	38 f3       	brcs	.-50     	; 0x9e <DUTY_CYCLE+0x1e>
+  d0:	f5 cf       	rjmp	.-22     	; 0xbc <DUTY_CYCLE+0x3c>
+				OCR2A = OCR2A + 25; // Increase compare value by 25 or 10%
+			}
+			OCR2A = 25; // Reset Compare value for timer 2 to 25 or 10%
+			OCR0A = OCR0A +25; // Increase compare value by 25 or 10%
+		}
+		OCR0A = 25; // Reset Compare value for timer 0 to 25 or 10%
+  d2:	97 bd       	out	0x27, r25	; 39
+		OCR1A = OCR1A + 25; // Increase compare value by 25 or 10%
+  d4:	2d 91       	ld	r18, X+
+  d6:	3c 91       	ld	r19, X
+  d8:	11 97       	sbiw	r26, 0x01	; 1
+  da:	27 5e       	subi	r18, 0xE7	; 231
+  dc:	3f 4f       	sbci	r19, 0xFF	; 255
+  de:	11 96       	adiw	r26, 0x01	; 1
+  e0:	3c 93       	st	X, r19
+  e2:	2e 93       	st	-X, r18
+void DUTY_CYCLE()
+{
+	OCR1A = 25; // Initialize Compare value to 10% of 255
+	OCR0A = 25; // Initialize Compare value to 10% of 255
+	OCR2A = 25; // Initialize Compare value to 10% of 255
+	while(OCR1A < 249)
+  e4:	2d 91       	ld	r18, X+
+  e6:	3c 91       	ld	r19, X
+  e8:	11 97       	sbiw	r26, 0x01	; 1
+  ea:	29 3f       	cpi	r18, 0xF9	; 249
+  ec:	31 05       	cpc	r19, r1
+  ee:	30 f0       	brcs	.+12     	; 0xfc <DUTY_CYCLE+0x7c>
+  f0:	08 95       	ret
+	{
+		while(OCR0A < 249)
+		{
+			while(OCR2A < 249)
+  f2:	e3 eb       	ldi	r30, 0xB3	; 179
+  f4:	f0 e0       	ldi	r31, 0x00	; 0
+			{
+				_delay_ms(150);
+				OCR2A = OCR2A + 25; // Increase compare value by 25 or 10%
+			}
+			OCR2A = 25; // Reset Compare value for timer 2 to 25 or 10%
+  f6:	99 e1       	ldi	r25, 0x19	; 25
+			OCR0A = OCR0A +25; // Increase compare value by 25 or 10%
+		}
+		OCR0A = 25; // Reset Compare value for timer 0 to 25 or 10%
+		OCR1A = OCR1A + 25; // Increase compare value by 25 or 10%
+  f8:	a8 e8       	ldi	r26, 0x88	; 136
+  fa:	b0 e0       	ldi	r27, 0x00	; 0
+	OCR1A = 25; // Initialize Compare value to 10% of 255
+	OCR0A = 25; // Initialize Compare value to 10% of 255
+	OCR2A = 25; // Initialize Compare value to 10% of 255
+	while(OCR1A < 249)
+	{
+		while(OCR0A < 249)
+  fc:	87 b5       	in	r24, 0x27	; 39
+  fe:	89 3f       	cpi	r24, 0xF9	; 249
+ 100:	20 f3       	brcs	.-56     	; 0xca <DUTY_CYCLE+0x4a>
+ 102:	e7 cf       	rjmp	.-50     	; 0xd2 <DUTY_CYCLE+0x52>
+
+00000104 <main>:
+void TIMER2_INIT(); // Function to Initialize timer 2
+
+
+int main(void)
+{
+	DDRD = (1<<6);
+ 104:	80 e4       	ldi	r24, 0x40	; 64
+ 106:	8a b9       	out	0x0a, r24	; 10
+	DDRB = (1<<1)|(1<<3);
+ 108:	8a e0       	ldi	r24, 0x0A	; 10
+ 10a:	84 b9       	out	0x04, r24	; 4
+return;
+}
+
+void TIMER0_INIT()
+{
+	TCCR0A = (1<<COM0A1) | // Non Inverting Mode
+ 10c:	83 e8       	ldi	r24, 0x83	; 131
+ 10e:	84 bd       	out	0x24, r24	; 36
+return;
+}
+
+void TIMER1_INIT()
+{
+	TCCR1A = (1<<COM1A1) | // Non Inverting Mode
+ 110:	91 e8       	ldi	r25, 0x81	; 129
+ 112:	90 93 80 00 	sts	0x0080, r25
+return;
+}
+
+void TIMER2_INIT()
+{
+	TCCR2A = (1<<COM2A1) | // Non Inverting Mode
+ 116:	80 93 b0 00 	sts	0x00B0, r24
+	DDRB = (1<<1)|(1<<3);
+	TIMER0_INIT(); // Initialize timer 0 
+	TIMER1_INIT(); // Initialize timer 1
+	TIMER2_INIT(); // Initialize timer 2
+ 
+	TCCR1B = (1<<WGM12) | // Prescaler to 1
+ 11a:	89 e0       	ldi	r24, 0x09	; 9
+ 11c:	80 93 81 00 	sts	0x0081, r24
+			 (1<<CS10);	// Timer Starts
+	TCCR0B = (1<<CS00); //Prescaler to 1, Timer starts
+ 120:	81 e0       	ldi	r24, 0x01	; 1
+ 122:	85 bd       	out	0x25, r24	; 37
+	TCCR2B = (1<<CS20); // Prescaler to 1, Timer starts
+ 124:	80 93 b1 00 	sts	0x00B1, r24
+   
+    while (1) 
+    {
+		while (TCCR1B != 0x08)
+ 128:	01 e8       	ldi	r16, 0x81	; 129
+ 12a:	10 e0       	ldi	r17, 0x00	; 0
+		{
+			while (TCCR0B != 0x00)
+			{
+				while (TCCR2B != 0x00)
+ 12c:	c1 eb       	ldi	r28, 0xB1	; 177
+ 12e:	d0 e0       	ldi	r29, 0x00	; 0
+					if (TCCR2B == 0x02)
+						TCCR2B = 0x03; // Change to 32 prescaler						
+					if (TCCR2B == 0x01)
+						TCCR2B = 0x02; // Change to 8 prescaler*/
+				}
+				TCCR2B = 0x01; // Reset Timer 2 prescaler to 1
+ 130:	ff 24       	eor	r15, r15
+ 132:	f3 94       	inc	r15
+			}
+			TCCR0B = 0x01; // Reset Timer 0 prescaler to 1
+			if (TCCR0B < 0x0D)
+				TCCR0B++;
+			else
+				TCCR0B = 0x08;							
+ 134:	68 94       	set
+ 136:	dd 24       	eor	r13, r13
+ 138:	d3 f8       	bld	r13, 3
+			else if (TCCR0B == 0x0C)
+				TCCR0B = 0x0D; // Change to 1024 prescaler
+			else
+				TCCR1B = 0x08; // Set to Prescaler to Zero to exit while loop*/
+		}
+	TCCR1B = 0x09; // Reset Timer 1 prescaler to 1
+ 13a:	0f 2e       	mov	r0, r31
+ 13c:	f9 e0       	ldi	r31, 0x09	; 9
+ 13e:	ef 2e       	mov	r14, r31
+ 140:	f0 2d       	mov	r31, r0
+ 142:	22 c0       	rjmp	.+68     	; 0x188 <main+0x84>
+		{
+			while (TCCR0B != 0x00)
+			{
+				while (TCCR2B != 0x00)
+				{
+					DUTY_CYCLE();
+ 144:	0e 94 40 00 	call	0x80	; 0x80 <DUTY_CYCLE>
+					if (TCCR2B < 0x07)
+ 148:	88 81       	ld	r24, Y
+ 14a:	87 30       	cpi	r24, 0x07	; 7
+ 14c:	20 f4       	brcc	.+8      	; 0x156 <main+0x52>
+						TCCR2B++;
+ 14e:	88 81       	ld	r24, Y
+ 150:	8f 5f       	subi	r24, 0xFF	; 255
+ 152:	88 83       	st	Y, r24
+ 154:	01 c0       	rjmp	.+2      	; 0x158 <main+0x54>
+					else
+						TCCR2B = 0x00;
+ 156:	18 82       	st	Y, r1
+    {
+		while (TCCR1B != 0x08)
+		{
+			while (TCCR0B != 0x00)
+			{
+				while (TCCR2B != 0x00)
+ 158:	88 81       	ld	r24, Y
+ 15a:	81 11       	cpse	r24, r1
+ 15c:	f3 cf       	rjmp	.-26     	; 0x144 <main+0x40>
+					if (TCCR2B == 0x02)
+						TCCR2B = 0x03; // Change to 32 prescaler						
+					if (TCCR2B == 0x01)
+						TCCR2B = 0x02; // Change to 8 prescaler*/
+				}
+				TCCR2B = 0x01; // Reset Timer 2 prescaler to 1
+ 15e:	f8 82       	st	Y, r15
+				if (TCCR0B < 0x05)
+ 160:	85 b5       	in	r24, 0x25	; 37
+ 162:	85 30       	cpi	r24, 0x05	; 5
+ 164:	20 f4       	brcc	.+8      	; 0x16e <main+0x6a>
+					TCCR0B++;
+ 166:	85 b5       	in	r24, 0x25	; 37
+ 168:	8f 5f       	subi	r24, 0xFF	; 255
+ 16a:	85 bd       	out	0x25, r24	; 37
+ 16c:	01 c0       	rjmp	.+2      	; 0x170 <main+0x6c>
+				else
+					TCCR0B = 0x00;
+ 16e:	15 bc       	out	0x25, r1	; 37
+   
+    while (1) 
+    {
+		while (TCCR1B != 0x08)
+		{
+			while (TCCR0B != 0x00)
+ 170:	85 b5       	in	r24, 0x25	; 37
+ 172:	81 11       	cpse	r24, r1
+ 174:	f1 cf       	rjmp	.-30     	; 0x158 <main+0x54>
+				else if (TCCR0B == 0x04)
+					TCCR0B = 0x05; // Change to 1024 prescaler
+				else
+					TCCR0B = 0x00; // Set to Prescaler to Zero to exit while loop*/
+			}
+			TCCR0B = 0x01; // Reset Timer 0 prescaler to 1
+ 176:	f5 bc       	out	0x25, r15	; 37
+			if (TCCR0B < 0x0D)
+ 178:	85 b5       	in	r24, 0x25	; 37
+ 17a:	8d 30       	cpi	r24, 0x0D	; 13
+ 17c:	20 f4       	brcc	.+8      	; 0x186 <main+0x82>
+				TCCR0B++;
+ 17e:	85 b5       	in	r24, 0x25	; 37
+ 180:	8f 5f       	subi	r24, 0xFF	; 255
+ 182:	85 bd       	out	0x25, r24	; 37
+ 184:	01 c0       	rjmp	.+2      	; 0x188 <main+0x84>
+			else
+				TCCR0B = 0x08;							
+ 186:	d5 bc       	out	0x25, r13	; 37
+	TCCR0B = (1<<CS00); //Prescaler to 1, Timer starts
+	TCCR2B = (1<<CS20); // Prescaler to 1, Timer starts
+   
+    while (1) 
+    {
+		while (TCCR1B != 0x08)
+ 188:	f8 01       	movw	r30, r16
+ 18a:	80 81       	ld	r24, Z
+ 18c:	88 30       	cpi	r24, 0x08	; 8
+ 18e:	81 f7       	brne	.-32     	; 0x170 <main+0x6c>
+			else if (TCCR0B == 0x0C)
+				TCCR0B = 0x0D; // Change to 1024 prescaler
+			else
+				TCCR1B = 0x08; // Set to Prescaler to Zero to exit while loop*/
+		}
+	TCCR1B = 0x09; // Reset Timer 1 prescaler to 1
+ 190:	e0 82       	st	Z, r14
+    }
+ 192:	fa cf       	rjmp	.-12     	; 0x188 <main+0x84>
+
+00000194 <_exit>:
+ 194:	f8 94       	cli
+
+00000196 <__stop_program>:
+ 196:	ff cf       	rjmp	.-2      	; 0x196 <__stop_program>
