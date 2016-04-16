@@ -1,19 +1,19 @@
 <ASSEMBLER_INFO>
  <VERSION>2.1.57</VERSION>
  <DEVICE>"ATmega328P"</DEVICE>
- <WORKING_DIR>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\Debug</WORKING_DIR>
+ <WORKING_DIR>D:\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\Debug</WORKING_DIR>
  <INCLUDE_PATH>
-  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.0.90\avrasm\inc</DIR>
-  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.0.90\avrasm\inc</DIR>
-  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR>D:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.0.90\avrasm\inc</DIR>
+  <DIR>D:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.0.90\avrasm\inc</DIR>
+  <DIR>D:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
   <DIR></DIR>
  </INCLUDE_PATH>
- <SOURCE_FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\DA1T1.asm</SOURCE_FILE>
+ <SOURCE_FILE>D:\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\DA1T1.asm</SOURCE_FILE>
  <INCLUDED_FILES>
-  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.0.90\avrasm\inc\m328pdef.inc</FILE>
+  <FILE>D:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.0.90\avrasm\inc\m328pdef.inc</FILE>
  </INCLUDED_FILES>
  <OBJECT_FILES>
-  <FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\Debug\DA1T1.obj</FILE>
+  <FILE>D:\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\Debug\DA1T1.obj</FILE>
  </OBJECT_FILES>
  <HEX_FILES>
   <FILE>DA1T1.hex</FILE>
@@ -23,14 +23,14 @@
   <FILE>DA1T1.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <start><FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\DA1T1.asm</FILE><LINE>22</LINE></start>
-  <NEXT><FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\DA1T1.asm</FILE><LINE>37</LINE></NEXT>
-  <DIVINIT><FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\DA1T1.asm</FILE><LINE>45</LINE></DIVINIT>
-  <DIV7><FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\DA1T1.asm</FILE><LINE>48</LINE></DIV7>
-  <NEXTDIV><FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\DA1T1.asm</FILE><LINE>59</LINE></NEXTDIV>
-  <DIV3><FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\DA1T1.asm</FILE><LINE>61</LINE></DIV3>
-  <DIVDONE><FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\DA1T1.asm</FILE><LINE>71</LINE></DIVDONE>
-  <SETREG><FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\DA1T1.asm</FILE><LINE>85</LINE></SETREG>
-  <HOLD><FILE>C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\DA1T1.asm</FILE><LINE>82</LINE></HOLD>
+  <start><FILE>D:\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\DA1T1.asm</FILE><LINE>22</LINE></start>
+  <NEXT><FILE>D:\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\DA1T1.asm</FILE><LINE>37</LINE></NEXT>
+  <DIVINIT><FILE>D:\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\DA1T1.asm</FILE><LINE>45</LINE></DIVINIT>
+  <DIV7><FILE>D:\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\DA1T1.asm</FILE><LINE>48</LINE></DIV7>
+  <NEXTDIV><FILE>D:\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\DA1T1.asm</FILE><LINE>59</LINE></NEXTDIV>
+  <DIV3><FILE>D:\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\DA1T1.asm</FILE><LINE>61</LINE></DIV3>
+  <DIVDONE><FILE>D:\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\DA1T1.asm</FILE><LINE>71</LINE></DIVDONE>
+  <SETREG><FILE>D:\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\DA1T1.asm</FILE><LINE>85</LINE></SETREG>
+  <HOLD><FILE>D:\Dropbox\School\CPE301\wellsa_unlv\DA1\DA1T1\DA1T1\DA1T1.asm</FILE><LINE>82</LINE></HOLD>
  </LABELS>
 </ASSEMBLER_INFO>
