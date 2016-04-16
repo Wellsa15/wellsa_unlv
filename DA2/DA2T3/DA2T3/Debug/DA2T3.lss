@@ -1,7 +1,7 @@
 
-AVRASM ver. 2.1.57  C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA2\DA2T3\DA2T3\DA2T3.asm Thu Mar 24 09:57:24 2016
+AVRASM ver. 2.1.57  D:\Dropbox\School\CPE301\wellsa_unlv\DA2\DA2T3\DA2T3\DA2T3.asm Sat Apr 16 16:34:09 2016
 
-[builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.0.98\avrasm\inc\m328pdef.inc'
+[builtin](2): Including file 'D:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.0.90\avrasm\inc\m328pdef.inc'
                  
                  ;
                  
@@ -1021,7 +1021,7 @@ AVRASM ver. 2.1.57  C:\Users\sirfe\Dropbox\School\CPE301\wellsa_unlv\DA2\DA2T3\D
 00010b bf0e      	MAKESTACK	; Call MAKESTACK macro to create the stack
                  
 00010c e042      	LDI		R20, 0x02	;Set R20 to 2, 0000 0010
-00010d 9340 006f 	STS		TIMSK1, R20	;Enable Timer1 overflow interrupt
+00010d 9340 006f 	STS		TIMSK1, R20	;Enable Timer1 compare interrupt
 00010f 9478      	SEI		;Global Interrupt Enable
 000110 e04f      	LDI		R20, 0x0F	;When using Chip on breadboard: TCNT1 = 0x079E, 1950
 000111 9340 0089 	STS		OCR1AH, R20	;When using Xplained Mini board: OCR1A = 0x0F42, 3906

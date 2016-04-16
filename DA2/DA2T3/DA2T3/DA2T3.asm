@@ -92,4 +92,4 @@ CHECK4:
 	OR		R18, R17; OR R18 and R17, Keeps Value in PORTC.0
 	OUT		PORTC, R18; Copy R18 into PORTC
 COUNTING:	
-RETI
+RETI ; return to main program
