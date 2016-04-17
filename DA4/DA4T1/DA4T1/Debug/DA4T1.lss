@@ -17,15 +17,15 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   6 .debug_abbrev 0000010c  00000000  00000000  00000454  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   000001a0  00000000  00000000  00000560  2**0
+  7 .debug_line   0000019b  00000000  00000000  00000560  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  00000064  00000000  00000000  00000700  2**2
+  8 .debug_frame  00000064  00000000  00000000  000006fc  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    000001c0  00000000  00000000  00000764  2**0
+  9 .debug_str    000001b4  00000000  00000000  00000760  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    00000048  00000000  00000000  00000924  2**0
+ 10 .debug_loc    00000048  00000000  00000000  00000914  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000030  00000000  00000000  0000096c  2**0
+ 11 .debug_ranges 00000030  00000000  00000000  0000095c  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -115,7 +115,7 @@ void DUTY_CYCLE()
 			while(OCR2A < 249)
 			{
 				_delay_ms(150);
-				OCR2A = OCR2A + 25; // Increase compare value by 25 or 10%
+				OCR2A = OCR2A + 25; // Increase compare value for timer 2 by 25 or 10%
   b0:	80 81       	ld	r24, Z
   b2:	87 5e       	subi	r24, 0xE7	; 231
   b4:	80 83       	st	Z, r24
@@ -130,11 +130,11 @@ void DUTY_CYCLE()
   ba:	88 f3       	brcs	.-30     	; 0x9e <DUTY_CYCLE+0x1e>
 			{
 				_delay_ms(150);
-				OCR2A = OCR2A + 25; // Increase compare value by 25 or 10%
+				OCR2A = OCR2A + 25; // Increase compare value for timer 2 by 25 or 10%
 			}
 			OCR2A = 25; // Reset Compare value for timer 2 to 25 or 10%
   bc:	90 83       	st	Z, r25
-			OCR0A = OCR0A +25; // Increase compare value by 25 or 10%
+			OCR0A = OCR0A +25; // Increase compare value for timer 0 by 25 or 10%
   be:	87 b5       	in	r24, 0x27	; 39
   c0:	87 5e       	subi	r24, 0xE7	; 231
   c2:	87 bd       	out	0x27, r24	; 39
@@ -153,14 +153,14 @@ void DUTY_CYCLE()
   cc:	89 3f       	cpi	r24, 0xF9	; 249
   ce:	38 f3       	brcs	.-50     	; 0x9e <DUTY_CYCLE+0x1e>
   d0:	f5 cf       	rjmp	.-22     	; 0xbc <DUTY_CYCLE+0x3c>
-				OCR2A = OCR2A + 25; // Increase compare value by 25 or 10%
+				OCR2A = OCR2A + 25; // Increase compare value for timer 2 by 25 or 10%
 			}
 			OCR2A = 25; // Reset Compare value for timer 2 to 25 or 10%
-			OCR0A = OCR0A +25; // Increase compare value by 25 or 10%
+			OCR0A = OCR0A +25; // Increase compare value for timer 0 by 25 or 10%
 		}
 		OCR0A = 25; // Reset Compare value for timer 0 to 25 or 10%
   d2:	97 bd       	out	0x27, r25	; 39
-		OCR1A = OCR1A + 25; // Increase compare value by 25 or 10%
+		OCR1A = OCR1A + 25; // Increase compare value for timer 1 by 25 or 10%
   d4:	2d 91       	ld	r18, X+
   d6:	3c 91       	ld	r19, X
   d8:	11 97       	sbiw	r26, 0x01	; 1
@@ -190,14 +190,14 @@ void DUTY_CYCLE()
   f4:	f0 e0       	ldi	r31, 0x00	; 0
 			{
 				_delay_ms(150);
-				OCR2A = OCR2A + 25; // Increase compare value by 25 or 10%
+				OCR2A = OCR2A + 25; // Increase compare value for timer 2 by 25 or 10%
 			}
 			OCR2A = 25; // Reset Compare value for timer 2 to 25 or 10%
   f6:	99 e1       	ldi	r25, 0x19	; 25
-			OCR0A = OCR0A +25; // Increase compare value by 25 or 10%
+			OCR0A = OCR0A +25; // Increase compare value for timer 0 by 25 or 10%
 		}
 		OCR0A = 25; // Reset Compare value for timer 0 to 25 or 10%
-		OCR1A = OCR1A + 25; // Increase compare value by 25 or 10%
+		OCR1A = OCR1A + 25; // Increase compare value for timer 1 by 25 or 10%
   f8:	a8 e8       	ldi	r26, 0x88	; 136
   fa:	b0 e0       	ldi	r27, 0x00	; 0
 	OCR1A = 25; // Initialize Compare value to 10% of 255
@@ -272,10 +272,10 @@ void TIMER2_INIT()
 				while (TCCR2B != 0x00)
  12c:	c1 eb       	ldi	r28, 0xB1	; 177
  12e:	d0 e0       	ldi	r29, 0x00	; 0
-					if (TCCR2B == 0x02)
-						TCCR2B = 0x03; // Change to 32 prescaler						
-					if (TCCR2B == 0x01)
-						TCCR2B = 0x02; // Change to 8 prescaler*/
+					if (TCCR2B < 0x07)
+						TCCR2B++; // increase prescaler value
+					else
+						TCCR2B = 0x00; // Set prescaler to 0 to exit loop
 				}
 				TCCR2B = 0x01; // Reset Timer 2 prescaler to 1
  130:	ff 24       	eor	r15, r15
@@ -283,16 +283,12 @@ void TIMER2_INIT()
 			}
 			TCCR0B = 0x01; // Reset Timer 0 prescaler to 1
 			if (TCCR0B < 0x0D)
-				TCCR0B++;
+				TCCR0B++; // Increase prescaler value
 			else
-				TCCR0B = 0x08;							
+				TCCR0B = 0x08;	// Reset timer 1 to exit loop					
  134:	68 94       	set
  136:	dd 24       	eor	r13, r13
  138:	d3 f8       	bld	r13, 3
-			else if (TCCR0B == 0x0C)
-				TCCR0B = 0x0D; // Change to 1024 prescaler
-			else
-				TCCR1B = 0x08; // Set to Prescaler to Zero to exit while loop*/
 		}
 	TCCR1B = 0x09; // Reset Timer 1 prescaler to 1
  13a:	0f 2e       	mov	r0, r31
@@ -305,19 +301,19 @@ void TIMER2_INIT()
 			{
 				while (TCCR2B != 0x00)
 				{
-					DUTY_CYCLE();
+					DUTY_CYCLE(); // Function to cycle through duty cycles
  144:	0e 94 40 00 	call	0x80	; 0x80 <DUTY_CYCLE>
 					if (TCCR2B < 0x07)
  148:	88 81       	ld	r24, Y
  14a:	87 30       	cpi	r24, 0x07	; 7
  14c:	20 f4       	brcc	.+8      	; 0x156 <main+0x52>
-						TCCR2B++;
+						TCCR2B++; // increase prescaler value
  14e:	88 81       	ld	r24, Y
  150:	8f 5f       	subi	r24, 0xFF	; 255
  152:	88 83       	st	Y, r24
  154:	01 c0       	rjmp	.+2      	; 0x158 <main+0x54>
 					else
-						TCCR2B = 0x00;
+						TCCR2B = 0x00; // Set prescaler to 0 to exit loop
  156:	18 82       	st	Y, r1
     {
 		while (TCCR1B != 0x08)
@@ -328,10 +324,10 @@ void TIMER2_INIT()
  158:	88 81       	ld	r24, Y
  15a:	81 11       	cpse	r24, r1
  15c:	f3 cf       	rjmp	.-26     	; 0x144 <main+0x40>
-					if (TCCR2B == 0x02)
-						TCCR2B = 0x03; // Change to 32 prescaler						
-					if (TCCR2B == 0x01)
-						TCCR2B = 0x02; // Change to 8 prescaler*/
+					if (TCCR2B < 0x07)
+						TCCR2B++; // increase prescaler value
+					else
+						TCCR2B = 0x00; // Set prescaler to 0 to exit loop
 				}
 				TCCR2B = 0x01; // Reset Timer 2 prescaler to 1
  15e:	f8 82       	st	Y, r15
@@ -339,13 +335,13 @@ void TIMER2_INIT()
  160:	85 b5       	in	r24, 0x25	; 37
  162:	85 30       	cpi	r24, 0x05	; 5
  164:	20 f4       	brcc	.+8      	; 0x16e <main+0x6a>
-					TCCR0B++;
+					TCCR0B++; // increase prescaler value
  166:	85 b5       	in	r24, 0x25	; 37
  168:	8f 5f       	subi	r24, 0xFF	; 255
  16a:	85 bd       	out	0x25, r24	; 37
  16c:	01 c0       	rjmp	.+2      	; 0x170 <main+0x6c>
 				else
-					TCCR0B = 0x00;
+					TCCR0B = 0x00; // Set prescaler to 0 to exit loop
  16e:	15 bc       	out	0x25, r1	; 37
    
     while (1) 
@@ -356,10 +352,10 @@ void TIMER2_INIT()
  170:	85 b5       	in	r24, 0x25	; 37
  172:	81 11       	cpse	r24, r1
  174:	f1 cf       	rjmp	.-30     	; 0x158 <main+0x54>
-				else if (TCCR0B == 0x04)
-					TCCR0B = 0x05; // Change to 1024 prescaler
+				if (TCCR0B < 0x05)
+					TCCR0B++; // increase prescaler value
 				else
-					TCCR0B = 0x00; // Set to Prescaler to Zero to exit while loop*/
+					TCCR0B = 0x00; // Set prescaler to 0 to exit loop
 			}
 			TCCR0B = 0x01; // Reset Timer 0 prescaler to 1
  176:	f5 bc       	out	0x25, r15	; 37
@@ -367,13 +363,13 @@ void TIMER2_INIT()
  178:	85 b5       	in	r24, 0x25	; 37
  17a:	8d 30       	cpi	r24, 0x0D	; 13
  17c:	20 f4       	brcc	.+8      	; 0x186 <main+0x82>
-				TCCR0B++;
+				TCCR0B++; // Increase prescaler value
  17e:	85 b5       	in	r24, 0x25	; 37
  180:	8f 5f       	subi	r24, 0xFF	; 255
  182:	85 bd       	out	0x25, r24	; 37
  184:	01 c0       	rjmp	.+2      	; 0x188 <main+0x84>
 			else
-				TCCR0B = 0x08;							
+				TCCR0B = 0x08;	// Reset timer 1 to exit loop					
  186:	d5 bc       	out	0x25, r13	; 37
 	TCCR0B = (1<<CS00); //Prescaler to 1, Timer starts
 	TCCR2B = (1<<CS20); // Prescaler to 1, Timer starts
@@ -385,10 +381,10 @@ void TIMER2_INIT()
  18a:	80 81       	ld	r24, Z
  18c:	88 30       	cpi	r24, 0x08	; 8
  18e:	81 f7       	brne	.-32     	; 0x170 <main+0x6c>
-			else if (TCCR0B == 0x0C)
-				TCCR0B = 0x0D; // Change to 1024 prescaler
+			if (TCCR0B < 0x0D)
+				TCCR0B++; // Increase prescaler value
 			else
-				TCCR1B = 0x08; // Set to Prescaler to Zero to exit while loop*/
+				TCCR0B = 0x08;	// Reset timer 1 to exit loop					
 		}
 	TCCR1B = 0x09; // Reset Timer 1 prescaler to 1
  190:	e0 82       	st	Z, r14

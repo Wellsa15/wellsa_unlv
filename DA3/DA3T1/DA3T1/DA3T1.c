@@ -5,57 +5,57 @@
  * Author : sirfe
  */ 
 
-#define F_CPU 8000000UL
-#define UBRR_9600 51	//For 1Mhz
+#define F_CPU 8000000UL // Set clock to 8MHz
+#define UBRR_9600 51	//For 8Mhz
 
 #include <avr/io.h>
 #include <stdio.h>
 #include <util/delay.h>
 #include <avr/interrupt.h>
 
-void ADCstart();
-void read_adc();
-void USARTstart(unsigned int ubrr);
-void USART_tx_string(char *data);
-void TIMER1_init();
+void ADCstart(); // Function to initialize the ADC
+void read_adc(); // Function to read from the ADC
+void USARTstart(unsigned int ubrr); // Funciton to initialize the USART port
+void USART_tx_string(char *data); // Function to transmit the value ove the serial port
+void TIMER1_init(); // Function to initialize timer 1
 
-volatile unsigned int ADCvalue;
-volatile unsigned int X;
-char outs[20];
-float Ratio;
+volatile unsigned int ADCvalue; // Variable to dave the temperature value
+volatile unsigned int X; // variable to keep track of how many values have been read
+char outs[20]; // output buffer
+float Ratio; // variable for calculating the temperature
 
 int main(void)
 {
 	
-	Ratio = 500.0/1024.0;
-	ADCstart();
-	USARTstart(UBRR_9600);
-	TIMER1_init();
+	Ratio = 500.0/1024.0; // Ratio to calcuate the actual temperature
+	ADCstart(); // initialize the ADC port
+	USARTstart(UBRR_9600); // initialize the USART port
+	TIMER1_init(); // Initialize timer 1
 
-	sei ();
-    while (1) 
+	sei (); // enable global interuupts
+    while (1) // infinite loop to transmite the temperature over serial port
     {
-		X = 4;
-		ADCvalue = 0;
-		while(X)
+		X = 4; // number of values taken before transmission
+		ADCvalue = 0; // reset temperature value
+		while(X) // stay here until 4 reading are taken
 		{			
 		}
-		ADCvalue = ADCvalue/4;
+		ADCvalue = ADCvalue/4;// average of values recieved
 		
-		snprintf(outs, sizeof(outs),"%3d\r\n", ADCvalue); // print
-		USART_tx_string(outs);
+		snprintf(outs, sizeof(outs),"%3d\r\n", ADCvalue); // convert value to a string
+		USART_tx_string(outs); // transmit value over serial connection
     }
 	
 return 0;
 }
 
-void read_adc()
+void read_adc() // function to read the value from the sensor
 {
-	ADCSRA |= (1<<ADSC);
-	while(ADCSRA & (1<<ADSC))
+	ADCSRA |= (1<<ADSC);// write one to ADSC bit to start conversion
+	while(ADCSRA & (1<<ADSC))// wait until conversion is complete
 	{			
 	}
-	ADCvalue += (Ratio*ADC);
+	ADCvalue += (Ratio*ADC);// save temperature
 		
 return;
 }
@@ -93,7 +93,7 @@ void TIMER1_init()
 
 void USARTstart(unsigned int ubrr)
 {
-	    UBRR0H = (unsigned char)(ubrr>>8);
+	    UBRR0H = (unsigned char)(ubrr>>8);// set baud rate to 9600
 	    UBRR0L = (unsigned char)ubrr;
 	    
 	    UCSR0B |= (1<<RXEN0) | (1<<TXEN0); // Enable Transmit and Receive
@@ -102,20 +102,20 @@ void USARTstart(unsigned int ubrr)
 return;
 }
 
-void USART_tx_string(char *data)
+void USART_tx_string(char *data)// transmit value function
 {
-	while ((*data != '\0'))
+	while ((*data != '\0'))// loop to send each character over the serial connection
 	{
-		while (!(UCSR0A & (1<<UDRE0)))
+		while (!(UCSR0A & (1<<UDRE0)))// wait until transmit buffer is clear
 		{			
 		}
-		UDR0 = *data;
-		data++;
+		UDR0 = *data; // load character into transmit buffer
+		data++; // go to next character
 	}
 }
 
-ISR (TIMER1_COMPA_vect)
+ISR (TIMER1_COMPA_vect)// Timer 1 compare interrupt
 {
-	read_adc();
-	X--;
+	read_adc();// read value from sensor
+	X--; // decrease X
 }

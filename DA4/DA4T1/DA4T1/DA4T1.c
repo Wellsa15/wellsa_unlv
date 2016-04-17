@@ -37,57 +37,23 @@ int main(void)
 			{
 				while (TCCR2B != 0x00)
 				{
-					DUTY_CYCLE();
+					DUTY_CYCLE(); // Function to cycle through duty cycles
 					if (TCCR2B < 0x07)
-						TCCR2B++;
+						TCCR2B++; // increase prescaler value
 					else
-						TCCR2B = 0x00;
-					/*if (TCCR2B == 0x07)
-						TCCR2B = 0x00; // Set to Prescaler to Zero to exit while loop
-					if (TCCR2B == 0x06)
-						TCCR2B = 0x07; // Change to 1024 prescaler
-					if (TCCR2B == 0x05)
-						TCCR2B = 0x06; // Change to 256 prescaler
-					if (TCCR2B == 0x04)
-						TCCR2B = 0x05; // Change to 128 prescaler
-					if (TCCR2B == 0x03)
-						TCCR2B = 0x04; // Change to 64 prescaler
-					if (TCCR2B == 0x02)
-						TCCR2B = 0x03; // Change to 32 prescaler						
-					if (TCCR2B == 0x01)
-						TCCR2B = 0x02; // Change to 8 prescaler*/
+						TCCR2B = 0x00; // Set prescaler to 0 to exit loop
 				}
 				TCCR2B = 0x01; // Reset Timer 2 prescaler to 1
 				if (TCCR0B < 0x05)
-					TCCR0B++;
+					TCCR0B++; // increase prescaler value
 				else
-					TCCR0B = 0x00;
-				/*if (TCCR0B == 0x01)
-					TCCR0B = 0x02; // Change to 8 prescaler
-				else if (TCCR0B == 0x02)
-					TCCR0B = 0x03; // Change to 64 prescaler
-				else if (TCCR0B == 0x03)
-					TCCR0B = 0x04; // Change to 256 prescaler
-				else if (TCCR0B == 0x04)
-					TCCR0B = 0x05; // Change to 1024 prescaler
-				else
-					TCCR0B = 0x00; // Set to Prescaler to Zero to exit while loop*/
+					TCCR0B = 0x00; // Set prescaler to 0 to exit loop
 			}
 			TCCR0B = 0x01; // Reset Timer 0 prescaler to 1
 			if (TCCR0B < 0x0D)
-				TCCR0B++;
+				TCCR0B++; // Increase prescaler value
 			else
-				TCCR0B = 0x08;							
-			/*if (TCCR0B == 0x09)
-				TCCR0B = 0x0A; // Change to 8 prescaler
-			else if (TCCR0B == 0x0A)
-				TCCR0B = 0x0B;// Change to 64 prescaler
-			else if (TCCR0B == 0x0B)
-				TCCR0B = 0x0C;// Change to 256 prescaler
-			else if (TCCR0B == 0x0C)
-				TCCR0B = 0x0D; // Change to 1024 prescaler
-			else
-				TCCR1B = 0x08; // Set to Prescaler to Zero to exit while loop*/
+				TCCR0B = 0x08;	// Reset timer 1 to exit loop					
 		}
 	TCCR1B = 0x09; // Reset Timer 1 prescaler to 1
     }
