@@ -27,7 +27,8 @@ float Ratio; // variable for calculating the temperature
 int main(void)
 {
 	
-	Ratio = 500.0/1024.0; // Ratio to calcuate the actual temperature
+	//Ratio = 500.0/1024.0; // Ratio to calcuate the actual temperature
+	Ratio = 1;
 	ADCstart(); // initialize the ADC port
 	USARTstart(UBRR_9600); // initialize the USART port
 	TIMER1_init(); // Initialize timer 1

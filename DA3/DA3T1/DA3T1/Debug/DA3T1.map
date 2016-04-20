@@ -630,9 +630,9 @@ END GROUP
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x111 DA3T1.o
 
-.debug_line     0x00000000      0x12d
+.debug_line     0x00000000      0x12e
  *(.debug_line .debug_line.* .debug_line_end)
- .debug_line    0x00000000      0x12d DA3T1.o
+ .debug_line    0x00000000      0x12e DA3T1.o
 
 .debug_frame    0x00000000      0x114
  *(.debug_frame)
