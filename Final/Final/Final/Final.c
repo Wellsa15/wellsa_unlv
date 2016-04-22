@@ -6,102 +6,117 @@
  */ 
 
 #define F_CPU 8000000UL // Set clock to 8MHz
-#define UBRR_9600 51	//For 8Mhz
+#define UBRR_115200 8	//For 8Mhz
 
 #include <avr/io.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <util/delay.h>
 #include <avr/interrupt.h>
+#include "mpu6050.h"
+#include "mpu6050_reg.h"
+#include "i2c.h"
 
-void ADCstart(); // Function to initialize the ADC
-void read_adc(); // Function to read from the ADC
 void USARTstart(unsigned int ubrr); // Function to initialize the USART port
 void USART_tx_string(char *data); // Function to transmit the value over the serial port
-void TIMER1_init(); // Function to initialize timer 1
-void i2c_init();// initialize sensor
-void i2c_start();// tell sensor to start sending data
-void i2c_write(unsigned char data); //write data to sensor
-void i2c_read(unsigned char	isLast);// read data from sensor
-void i2c_stop(); // stop sensor
+// void i2c_init();// initialize sensor
+// void i2c_start();// tell sensor to start sending data
+// void i2c_write(unsigned char data); //write data to sensor
+// void i2c_read(unsigned char	isLast);// read data from sensor
+// void i2c_stop(); // stop sensor
 
-
-volatile float ADCvalue; // Variable to save the sensor value
-volatile unsigned int X; // variable to keep track of how many values have been read
-char outs[20]; // output buffer
-
+char Xout[10]; // output buffer for X-axis
+char Yout[10]; // output buffer for y-axis
+char Zout[10];// output buffer for z-axis
+char SSID[]= "\"XXX\", ";
+char PASSWORD[]= "\"xxx\"\r\n";
+char ADAFRUITIP[]= "\"io.adafruit.com\"";
+char PORTNUM[]= "\",80\r\n";
+char APIKEY[]="00af961cb3c84d5f840c2a60390fd37a";
+char DATA_STR[70];
+char WIFI_COMMAND[] = "AT+CWJAP=";;
+char CONNECT_COMMAND[] = "AT+CIPSTART=\"TCP\",\"";
+char SEND_COMMAND[20];
+// Wifi connect:  AT+CWJAP="SSID", "PASSWORD"
+// Connect to Adafruit: AT+CIPSTART= "TCP","%s(IP)" , 80 *Add \ in front of " for it to be read properly 
+// Send data: AT+CIPSEND=(string.length())
+// Data string to send: "GET /update?api_key=%s&field1=(sensor value)\r\n\r\n",APIKEY,Sensor)
 
 int main(void)
 {
-	unsigned char i = 0;
-	
-	i2c_init(); 
-	ADCstart(); // initialize the ADC port
-	USARTstart(UBRR_9600); // initialize the USART port
-	TIMER1_init(); // Initialize timer 1
-
 	sei (); // enable global interrupts
+	USARTstart(UBRR_115200); // initialize the USART port
+	i2c_init();// initialize I2C	
+	
+	DDRB |= (1<<5);
+
+	uint8_t ret;
+	int16_t accel_buff[3];
+	double accelX, accelY, accelZ;
+	//Build command connect to Wifi and transmit
+	strcat(WIFI_COMMAND,SSID);
+	strcat(WIFI_COMMAND,PASSWORD);
+	USART_tx_string(WIFI_COMMAND);// Connect to IO.Adafruit	
+	//initialize & test MPU5060 availability
+	ret = i2c_start(MPU6050_ADDRESS+I2C_WRITE);
+	USART_tx_string("HELLO2\r\n");
+ 	if(~ret)
+ 		{
+ 			PORTB |= (1<<5);
+ 			_delay_ms(200);
+ 			PORTB &= ~(1<<5);
+ 		}
+	mpu6050_init();// Initialize MPU
+	USART_tx_string("HELLO3\r\n");
+	// Build Command to connect to Cloud
+	strcat(CONNECT_COMMAND,ADAFRUITIP);
+	strcat(CONNECT_COMMAND,PORTNUM);
+
+	USART_tx_string(CONNECT_COMMAND);// Connect to IO.Adafruit
+	USART_tx_string("HELLO5\r\n");
 	while (1) // infinite loop to transmit the sensor value over serial port
 	{
-		i2c_start();
-		X = 4; // number of values taken before transmission
-		ADCvalue = 0; // reset temperature value
-		while(X) // stay here until 4 reading are taken
-		{
-		}
-		ADCvalue = ((ADCvalue*5)/1024);// 
+		USART_tx_string("HELLO6\r\n");
+		mpu6050_read_accel_ALL(accel_buff);
+			
+		// acceleration (m/s^2)
+		accelX = accel_buff[0]*9.8*2/32768;
+		accelY = accel_buff[1]*9.8*2/32768;
+		accelZ = accel_buff[2]*9.8*2/32768;
 		
-		snprintf(outs, sizeof(outs),"%3f\r\n", ADCvalue); // convert value to a string
-		USART_tx_string(outs); // transmit value over serial connection
+		snprintf(Xout, sizeof(Xout),"%3f", accelX); // convert value to a string
+		snprintf(Yout, sizeof(Yout),"%3f", accelY); // convert value to a string
+		snprintf(Zout, sizeof(Zout),"%3f", accelZ); // convert value to a string
+		// Build Data string to send to cloud
+		snprintf(DATA_STR, sizeof(DATA_STR),"GET /update?api_key=%s&field1=%.2f&field2=%.2f&field3=%.2f\r\n",APIKEY,accelX,accelY,accelZ);
+//  		strcat(&DATA_STR,APIKEY);// Add API key to string
+//  		strcat(&DATA_STR,"&field1="); // Identify what field to send
+//  		strcat(&DATA_STR,Xout);// add sensor value
+//  		strcat(&DATA_STR,"&field2=");
+//  		strcat(&DATA_STR,Yout);
+//  		strcat(&DATA_STR,"&field3=");
+//  		strcat(&DATA_STR,Zout);
+//  		strcat(&DATA_STR,"\r\n");// add line feed
+		
+		// Build Command to Send
+		snprintf(SEND_COMMAND, sizeof(SEND_COMMAND),"AT+CIPSEND=%d\r\n",sizeof(DATA_STR));
+//  		strcat(&SEND_COMMAND,sizeof(DATA_STR));// Length of string to be sent
+//  		strcat(&SEND_COMMAND,"\r\n");// add line feed
+		USART_tx_string(CONNECT_COMMAND);// Connect to IO.Adafruit
+		_delay_ms(10);
+		USART_tx_string(SEND_COMMAND);// Transmit command to send data
+		_delay_ms(10);
+		USART_tx_string(DATA_STR); // transmit data over serial connection
+		_delay_ms(10);
 	}
 	
 	return 0;
 }
 
-void read_adc() // function to read the value from the sensor
-{
-	ADCSRA |= (1<<ADSC);// write one to ADSC bit to start conversion
-	while(ADCSRA & (1<<ADSC))// wait until conversion is complete
-	{
-	}
-	ADCvalue = ADC;// save temperature
-	
-	return;
-}
-
-void ADCstart()
-{
-	ADMUX = (0<<REFS1)| // Reference Selection Bits
-	(1<<REFS0)| //use AVcc as reference
-	(0<<ADLAR)|	//ADC Left adjust Result
-	(0<<MUX2)|	// Analog Channel Selection Bits
-	(1<<MUX1)|	// ADC2 (PC2, PIN25)
-	(0<<MUX0);
-	ADCSRA = (1<<ADEN)|	//ADC Enable
-	(0<<ADSC)|	//ADC Start Conversion
-	(0<<ADIF)|	//ADC Auto Trigger Enable
-	(0<<ADIE)|	//ADC Interrupt Flag
-	(0<<ADATE)|	//ADC Interrupt Enable
-	(1<<ADPS2)|	//ADC Prescaler Bits
-	(0<<ADPS1)|
-	(1<<ADPS0);
-
-	return;
-}
-
-void TIMER1_init()
-{
-	OCR1A = 0x7A12;
-	TIMSK1 |= (1<<OCIE1A);  //enable Compare A interrupt
-	
-	TCCR1B |=(1<<WGM12)|// CTC Mode
-	(1<<CS11)|	// Prescaler = 64
-	(1<<CS10);
-	
-}
-
 void USARTstart(unsigned int ubrr)
 {
-	UBRR0H = (unsigned char)(ubrr>>8);// set baud rate to 9600
+	UBRR0H = (unsigned char)(ubrr>>8);// set baud rate to 115200
 	UBRR0L = (unsigned char)ubrr;
 	
 	UCSR0B |= (1<<RXEN0) | (1<<TXEN0); // Enable Transmit and Receive
@@ -121,17 +136,11 @@ void USART_tx_string(char *data)// transmit value function
 		data++; // go to next character
 	}
 }
-
-ISR (TIMER1_COMPA_vect)// Timer 1 compare interrupt
-{
-	read_adc();// read value from sensor
-	X--; // decrease X
-}
-
+/*
 void i2c_init()
 {
 	TWSR= 0x00; // set prescaler bits to zero
-	TWBR= 0x47;	//SCL Freq is 50k for XTAL = 8M
+	TWBR= 0x0C;	// SCL Freq is 400k for XTAL = 16M
 	TWCR= 0x04; // Enable the TWI module	
 }
 
@@ -161,4 +170,4 @@ return TWDR;
 void i2c_stop()
 {
 	TWCR = (1<<TWINT)|(1<<TWEN)|(TWSTO);
-}
+}*/

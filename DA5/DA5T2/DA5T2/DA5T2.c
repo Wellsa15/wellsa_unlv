@@ -5,11 +5,10 @@
  * Author : sirfe
  */ 
 
-#define F_CPU 8000000UL // Set clock to 8Mhz
+#define F_CPU 8000000UL // Set clock to 8Mhz, Ignored by Xplained Mini Board
 
 #include <avr/io.h>
 #include <util/delay.h>
-#define ENABLE 6
 
 void ADCstart(); // Function to initialize the ADC
 void DUTY_DELAY(int DELAY); // function to allow variable delay
