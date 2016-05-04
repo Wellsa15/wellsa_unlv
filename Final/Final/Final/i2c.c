@@ -8,7 +8,6 @@
 **************************************************************************/
 #include <inttypes.h>
 #include <compat/twi.h>
-
 #include "i2c.h"
 
 
@@ -30,7 +29,6 @@ void i2c_init(void)
   
   TWSR = 0;                         /* no prescaler */
   TWBR = ((F_CPU/SCL_CLOCK)-16)/2;  /* must be > 10 for stable operation */
-
 }/* i2c_init */
 
 
@@ -43,11 +41,10 @@ unsigned char i2c_start(unsigned char address)
     uint8_t   twst;
 
 	// send START condition
-	TWCR = (1<<TWINT) | (1<<TWSTA) | (1<<TWEN);
-	USART_tx_string("HELLO36\r\n");
+	TWCR = (1 << TWINT) | (1 << TWSTA) | (1 << TWEN);
 	// wait until transmission completed
 	while(!(TWCR & (1<<TWINT)));
-	USART_tx_string("HELLO38\r\n");
+
 	// check value of TWI Status Register. Mask prescaler bits.
 	twst = TW_STATUS & 0xF8;
 	if ( (twst != TW_START) && (twst != TW_REP_START)) return 1;
@@ -58,11 +55,9 @@ unsigned char i2c_start(unsigned char address)
 
 	// wail until transmission completed and ACK/NACK has been received
 	while(!(TWCR & (1<<TWINT)));
-	USART_tx_string("HELLO365\r\n");
 	// check value of TWI Status Register. Mask prescaler bits.
 	twst = TW_STATUS & 0xF8;
 	if ( (twst != TW_MT_SLA_ACK) && (twst != TW_MR_SLA_ACK) ) return 1;
-
 	return 0;
 
 }/* i2c_start */

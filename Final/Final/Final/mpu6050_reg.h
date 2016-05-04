@@ -4,7 +4,7 @@
 #ifndef MPU6050_REG
 #define MPU6050_REG
 
-#define MPU6050_ADDRESS 0b11010010 // Address with end write bit
+#define MPU6050_ADDRESS 0b11010000 // Address with end write bit
 #define MPU6050_RA_XG_OFFS_TC 0x00 //[7] PWR_MODE, [6:1] XG_OFFS_TC, [0] OTP_BNK_VLD
 #define MPU6050_RA_YG_OFFS_TC 0x01 //[7] PWR_MODE, [6:1] YG_OFFS_TC, [0] OTP_BNK_VLD
 #define MPU6050_RA_ZG_OFFS_TC 0x02 //[7] PWR_MODE, [6:1] ZG_OFFS_TC, [0] OTP_BNK_VLD
